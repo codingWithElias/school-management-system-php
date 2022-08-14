@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2022 at 02:46 PM
+-- Generation Time: Aug 14, 2022 at 10:15 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -126,8 +126,8 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `username`, `password`, `fname`, `lname`, `subjects`, `grades`) VALUES
-(1, 'oliver', '$2y$10$H7obJEdmLzqqcPy7wQWhsOLUvrgzC8f1Y1or2Gxaza5z1PT0tvLy6', 'Oliver', 'Noah', '12', '13'),
-(2, 'elias', '$2y$10$lSUlDn1oQInYqQUwACS5uOBVXN75nPMDjN9iGBn0b8PRiXRQgmAfK', 'Elias', 'A.', '1', '12');
+(1, 'oliver', '$2y$10$FNAmnGXSWGIvRwW1j9iaDeomnHhku8a1LKlcO46I.6K/mEzQ2/Xi.', 'Oliver', 'Noah', '12', '12'),
+(3, 'elias', '$2y$10$0jm9PjYYMixif6dEzG0waOm91jV8bwW8eeHpHehAHVYEIZnfPgzNO', 'Elias', 'A.', '12', '1');
 
 --
 -- Indexes for dumped tables
@@ -198,7 +198,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
