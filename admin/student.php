@@ -5,17 +5,16 @@ if (isset($_SESSION['admin_id']) &&
 
     if ($_SESSION['role'] == 'Admin') {
        include "../DB_connection.php";
-       include "data/teacher.php";
-       include "data/subject.php";
+       include "data/student.php";
        include "data/grade.php";
-       $teachers = getAllTeachers($conn);
+       $students = getAllStudents($conn);
  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin - Teachers</title>
+	<title>Admin - Students</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="icon" href="../logo.png">
@@ -25,11 +24,11 @@ if (isset($_SESSION['admin_id']) &&
 <body>
     <?php 
         include "inc/navbar.php";
-        if ($teachers != 0) {
+        if ($students != 0) {
      ?>
      <div class="container mt-5">
-        <a href="teacher-add.php"
-           class="btn btn-dark">Add New Teacher</a>
+        <a href="student-add.php"
+           class="btn btn-dark">Add New Student</a>
 
            <?php if (isset($_GET['error'])) { ?>
             <div class="alert alert-danger mt-3 n-table" 
@@ -54,49 +53,33 @@ if (isset($_SESSION['admin_id']) &&
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Username</th>
-                    <th scope="col">Subject</th>
                     <th scope="col">Grade</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $i = 0; foreach ($teachers as $teacher ) { 
+                  <?php $i = 0; foreach ($students as $student ) { 
                     $i++;  ?>
                   <tr>
                     <th scope="row"><?=$i?></th>
-                    <td><?=$teacher['teacher_id']?></td>
-                    <td><?=$teacher['fname']?></td>
-                    <td><?=$teacher['lname']?></td>
-                    <td><?=$teacher['username']?></td>
-                    <td>
-                       <?php 
-                           $s = '';
-                           $subjects = str_split(trim($teacher['subjects']));
-                           foreach ($subjects as $subject) {
-                              $s_temp = getSubjectById($subject, $conn);
-                              if ($s_temp != 0) 
-                                $s .=$s_temp['subject_code'].', ';
-                           }
-                           echo $s;
-                        ?>
-                    </td>
+                    <td><?=$student['student_id']?></td>
+                    <td><?=$student['fname']?></td>
+                    <td><?=$student['lname']?></td>
+                    <td><?=$student['username']?></td>
                     <td>
                       <?php 
-                           $g = '';
-                           $grades = str_split(trim($teacher['grades']));
-                           foreach ($grades as $grade) {
-                              $g_temp = getGradeById($grade, $conn);
-                              if ($g_temp != 0) 
-                                $g .=$g_temp['grade_code'].'-'.
-                                     $g_temp['grade'].', ';
-                           }
-                           echo $g;
+                           $grade = $student['grade'];
+                           $g_temp = getGradeById($grade, $conn);
+                           if ($g_temp != 0) {
+                              echo $g_temp['grade_code'].'-'.
+                                     $g_temp['grade'];
+                            }
                         ?>
                     </td>
                     <td>
-                        <a href="teacher-edit.php?teacher_id=<?=$teacher['teacher_id']?>"
+                        <a href="student-edit.php?student_id=<?=$student['student_id']?>"
                            class="btn btn-warning">Edit</a>
-                        <a href="teacher-delete.php?teacher_id=<?=$teacher['teacher_id']?>"
+                        <a href="student-delete.php?student_id=<?=$student['student_id']?>"
                            class="btn btn-danger">Delete</a>
                     </td>
                   </tr>
@@ -115,7 +98,7 @@ if (isset($_SESSION['admin_id']) &&
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>	
     <script>
         $(document).ready(function(){
-             $("#navLinks li:nth-child(2) a").addClass('active');
+             $("#navLinks li:nth-child(3) a").addClass('active');
         });
     </script>
 

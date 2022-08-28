@@ -29,7 +29,7 @@ if (isset($_SESSION['admin_id']) &&
                  <i class="fa fa-user-md fs-1" aria-hidden="true"></i><br>
                   Teachers
                </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
+               <a href="student.php" class="col btn btn-dark m-2 py-3">
                  <i class="fa fa-graduation-cap fs-1" aria-hidden="true"></i><br>
                   Students
                </a> 

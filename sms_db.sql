@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2022 at 10:15 AM
+-- Generation Time: Aug 28, 2022 at 01:48 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -71,19 +71,21 @@ INSERT INTO `grades` (`grade_id`, `grade`, `grade_code`) VALUES
 --
 
 CREATE TABLE `students` (
-  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
   `username` varchar(127) NOT NULL,
   `password` varchar(255) NOT NULL,
   `fname` varchar(127) NOT NULL,
-  `lname` varchar(255) NOT NULL
+  `lname` varchar(255) NOT NULL,
+  `grade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `username`, `password`, `fname`, `lname`) VALUES
-(1, 'john', '$2y$10$H7obJEdmLzqqcPy7wQWhsOLUvrgzC8f1Y1or2Gxaza5z1PT0tvLy6', 'John', 'Doe');
+INSERT INTO `students` (`student_id`, `username`, `password`, `fname`, `lname`, `grade`) VALUES
+(1, 'john', '$2y$10$H1kAwLWHZx8LvsXAHvLV2eVyE0yeKMlckyd.p8j1Zu5TQjReP7r4i', 'John', 'Doe', 2),
+(3, 'abas', '$2y$10$KLFheMWgpLfoiqMuW2LQxOPficlBiSIJ9.wE2qr5yJUbAQ.5VURoO', 'Abas', 'A.', 1);
 
 -- --------------------------------------------------------
 
@@ -150,7 +152,7 @@ ALTER TABLE `grades`
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`student_id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
@@ -186,7 +188,7 @@ ALTER TABLE `grades`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subjects`
