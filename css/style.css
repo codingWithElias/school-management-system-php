@@ -73,3 +73,13 @@ textarea {
 	text-align: center;
 	font-size: 50px;
 }
+.w-450 {
+	width: 450px;
+}
+.n-table {
+	max-width: 800px;
+}
+.form-w {
+	max-width: 600px;
+	width: 100%;
+}
