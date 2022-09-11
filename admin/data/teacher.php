@@ -69,3 +69,28 @@ function removeTeacher($id, $conn){
     return 0;
    }
 }
+
+// Search 
+function searchTeachers($key, $conn){
+   $key = preg_replace('/(?<!\\\)([%_])/', '\\\$1',$key);
+
+   $sql = "SELECT * FROM teachers
+           WHERE teacher_id LIKE ? 
+           OR fname LIKE ?
+           OR lname LIKE ?
+           OR username LIKE ?
+           OR employee_number LIKE ?
+           OR phone_number LIKE ?
+           OR qualification LIKE ?
+           OR email_address LIKE ?
+           OR address LIKE ?";
+   $stmt = $conn->prepare($sql);
+   $stmt->execute([$key, $key, $key, $key, $key,$key, $key, $key, $key]);
+
+   if ($stmt->rowCount() == 1) {
+     $teachers = $stmt->fetchAll();
+     return $teachers;
+   }else {
+    return 0;
+   }
+}

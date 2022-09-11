@@ -31,6 +31,21 @@ if (isset($_SESSION['admin_id']) &&
         <a href="teacher-add.php"
            class="btn btn-dark">Add New Teacher</a>
 
+           <form action="teacher-search.php" 
+                 class="mt-3 n-table"
+                 method="get">
+             <div class="input-group mb-3">
+                <input type="text" 
+                       class="form-control"
+                       name="searchKey"
+                       placeholder="Search...">
+                <button class="btn btn-primary">
+                        <i class="fa fa-search" 
+                           aria-hidden="true"></i>
+                      </button>
+             </div>
+           </form>
+
            <?php if (isset($_GET['error'])) { ?>
             <div class="alert alert-danger mt-3 n-table" 
                  role="alert">
@@ -65,7 +80,8 @@ if (isset($_SESSION['admin_id']) &&
                   <tr>
                     <th scope="row"><?=$i?></th>
                     <td><?=$teacher['teacher_id']?></td>
-                    <td><?=$teacher['fname']?></td>
+                    <td><a href="teacher-view.php?teacher_id=<?=$teacher['teacher_id']?>">
+                         <?=$teacher['fname']?></a></td>
                     <td><?=$teacher['lname']?></td>
                     <td><?=$teacher['username']?></td>
                     <td>

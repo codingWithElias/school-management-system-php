@@ -9,9 +9,11 @@ if (isset($_SESSION['admin_id']) &&
        include "../DB_connection.php";
        include "data/subject.php";
        include "data/grade.php";
+       include "data/section.php";
        include "data/teacher.php";
        $subjects = getAllSubjects($conn);
        $grades = getAllGrades($conn);
+       $sections = getAllSections($conn);
        
        $teacher_id = $_GET['teacher_id'];
        $teacher = getTeacherById($teacher_id, $conn);
@@ -78,6 +80,60 @@ if (isset($_SESSION['admin_id']) &&
                  value="<?=$teacher['username']?>"
                  name="username">
         </div>
+        <div class="mb-3">
+          <label class="form-label">address</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$teacher['address']?>"
+                 name="address">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Employee number</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$teacher['employee_number']?>"
+                 name="employee_number">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Date of birth</label>
+          <input type="date" 
+                 class="form-control"
+                 value="<?=$teacher['date_of_birth']?>"
+                 name="date_of_birth">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone number</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$teacher['phone_number']?>"
+                 name="phone_number">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Qualification</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$teacher['qualification']?>"
+                 name="qualification">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email address</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$teacher['email_address']?>"
+                 name="email_address">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Gender</label><br>
+          <input type="radio"
+                 value="Male"
+                 <?php if($teacher['gender'] == 'Male') echo 'checked';  ?> 
+                 name="gender"> Male
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio"
+                 value="Female"
+                 <?php if($teacher['gender'] == 'Female') echo 'checked';  ?> 
+                 name="gender"> Female
+        </div>
         <input type="text"
                 value="<?=$teacher['teacher_id']?>"
                 name="teacher_id"
@@ -126,6 +182,31 @@ if (isset($_SESSION['admin_id']) &&
                      <?php if($checked) echo "checked"; ?>
                      value="<?=$grade['grade_id']?>">
                      <?=$grade['grade_code']?>-<?=$grade['grade']?>
+            </div>
+            <?php } ?>
+             
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Section</label>
+          <div class="row row-cols-5">
+            <?php 
+            $section_ids = str_split(trim($teacher['section']));
+            foreach ($sections as $section){ 
+              $checked =0;
+              foreach ($section_ids as $section_id ) {
+                if ($section_id == $section['section_id']) {
+                   $checked =1;
+                }
+              }
+            ?>
+            <div class="col">
+              <input type="checkbox"
+                     name="sections[]"
+                     <?php if($checked) echo "checked"; ?>
+                     value="<?=$section['section_id']?>">
+                     <?=$section['section']?>
             </div>
             <?php } ?>
              
