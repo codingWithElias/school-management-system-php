@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2022 at 03:14 PM
+-- Generation Time: Oct 16, 2022 at 01:05 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -62,7 +62,8 @@ INSERT INTO `grades` (`grade_id`, `grade`, `grade_code`) VALUES
 (1, '1', 'G'),
 (2, '2', 'G'),
 (3, '1', 'KG'),
-(4, '2', 'KG');
+(4, '2', 'KG'),
+(7, '3', 'G');
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,7 @@ INSERT INTO `section` (`section_id`, `section`) VALUES
 (1, 'A'),
 (2, 'B'),
 (3, 'C'),
-(4, 'D');
+(6, 'D');
 
 -- --------------------------------------------------------
 
@@ -228,13 +229,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `students`

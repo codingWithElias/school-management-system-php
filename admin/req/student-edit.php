@@ -91,17 +91,6 @@ if (isset($_POST['fname'])      &&
         header("Location: ../student-edit.php?error=$em&$data");
         exit;
     }else {
-        /*
-$address = $_POST['address'];
-    $gender = $_POST['gender'];
-    $section = $_POST['section'];
-    $email_address = $_POST['email_address'];
-    $date_of_birth = $_POST['date_of_birth'];
-    $parent_fname = $_POST['parent_fname'];
-    $parent_lname = $_POST['parent_lname'];
-    $parent_phone_number = $_POST['parent_phone_number'];
-
-        */
         $sql = "UPDATE students SET
                 username = ?, fname=?, lname=?, grade=?, address=?,gender = ?, section=?, email_address=?, date_of_birth=?, parent_fname=?,parent_lname=?,parent_phone_number=?
                 WHERE student_id=?";
