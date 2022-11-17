@@ -6,12 +6,6 @@ if (isset($_SESSION['admin_id']) &&
     if ($_SESSION['role'] == 'Admin') {
       
        include "../DB_connection.php";
-       include "data/subject.php";
-       include "data/grade.php";
-       include "data/section.php";
-       include "data/class.php";
-       $subjects = getAllSubjects($conn);
-       $classes = getAllClasses($conn);
 
 
        $fname = '';
@@ -37,7 +31,7 @@ if (isset($_SESSION['admin_id']) &&
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin - Add Teacher</title>
+	<title>Admin - Add Registrar Office</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="icon" href="../logo.png">
@@ -49,13 +43,13 @@ if (isset($_SESSION['admin_id']) &&
         include "inc/navbar.php";
      ?>
      <div class="container mt-5">
-        <a href="teacher.php"
+        <a href="registrar-office.php"
            class="btn btn-dark">Go Back</a>
 
         <form method="post"
               class="shadow p-3 mt-5 form-w" 
-              action="req/teacher-add.php">
-        <h3>Add New Teacher</h3><hr>
+              action="req/registrar-office-add.php">
+        <h3>Add New Registrar Office User</h3><hr>
         <?php if (isset($_GET['error'])) { ?>
           <div class="alert alert-danger" role="alert">
            <?=$_GET['error']?>
@@ -153,39 +147,6 @@ if (isset($_SESSION['admin_id']) &&
                  value=""
                  name="date_of_birth">
         </div>
-        <div class="mb-3">
-          <label class="form-label">Subject</label>
-          <div class="row row-cols-5">
-            <?php foreach ($subjects as $subject): ?>
-            <div class="col">
-              <input type="checkbox"
-                     name="subjects[]"
-                     value="<?=$subject['subject_id']?>">
-                     <?=$subject['subject']?>
-            </div>
-            <?php endforeach ?>
-             
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Class</label>
-          <div class="row row-cols-5">
-            <?php foreach ($classes as $class): ?>
-            <div class="col">
-              <input type="checkbox"
-                     name="classes[]"
-                     value="<?=$class['class_id']?>">
-                     <?php 
-                        $grade = getGradeById($class['grade'], $conn); 
-                        $section = getSectioById($class['section'], $conn); 
-                      ?>
-                     <?=$grade['grade_code']?>-<?=$grade['grade'].$section['section']?>
-            </div>
-            <?php endforeach ?>
-             
-          </div>
-        </div>
-
       <button type="submit" class="btn btn-primary">Add</button>
      </form>
      </div>
@@ -193,7 +154,7 @@ if (isset($_SESSION['admin_id']) &&
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>	
     <script>
         $(document).ready(function(){
-             $("#navLinks li:nth-child(2) a").addClass('active');
+             $("#navLinks li:nth-child(7) a").addClass('active');
         });
 
         function makePass(length) {

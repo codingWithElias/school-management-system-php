@@ -9,19 +9,17 @@ if (isset($_SESSION['admin_id']) &&
 if (isset($_POST['fname'])      &&
     isset($_POST['lname'])      &&
     isset($_POST['username'])   &&
-    isset($_POST['teacher_id']) &&
+    isset($_POST['r_user_id']) &&
     isset($_POST['address'])  &&
     isset($_POST['employee_number']) &&
     isset($_POST['phone_number'])  &&
     isset($_POST['qualification']) &&
     isset($_POST['email_address']) &&
     isset($_POST['gender'])        &&
-    isset($_POST['date_of_birth']) &&
-    isset($_POST['subjects'])   &&
-    isset($_POST['classes'])) {
+    isset($_POST['date_of_birth'])) {
     
     include '../../DB_connection.php';
-    include "../data/teacher.php";
+    include "../data/registrar_office.php";
 
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
@@ -35,79 +33,70 @@ if (isset($_POST['fname'])      &&
     $gender = $_POST['gender'];
     $date_of_birth = $_POST['date_of_birth'];
 
-    $teacher_id = $_POST['teacher_id'];
+    $r_user_id = $_POST['r_user_id'];
     
-    $classes = "";
-    foreach ($_POST['classes'] as $class) {
-    	$classes .=$class;
-    }
 
-    $subjects = "";
-    foreach ($_POST['subjects'] as $subject) {
-    	$subjects .=$subject;
-    }
-
-    $data = 'teacher_id='.$teacher_id;
+    $data = 'r_user_id='.$r_user_id;
 
     if (empty($fname)) {
 		$em  = "First name is required";
-		header("Location: ../teacher-edit.php?error=$em&$data");
+		header("Location: ../registrar-office-edit.php?error=$em&$data");
 		exit;
 	}else if (empty($lname)) {
 		$em  = "Last name is required";
-		header("Location: ../teacher-edit.php?error=$em&$data");
+		header("Location: ../registrar-office-edit.php?error=$em&$data");
 		exit;
 	}else if (empty($uname)) {
 		$em  = "Username is required";
-		header("Location: ../teacher-edit.php?error=$em&$data");
+		header("Location: ../registrar-office-edit.php?error=$em&$data");
 		exit;
-	}else if (!unameIsUnique($uname, $conn, $teacher_id)) {
+	}else if (!unameIsUnique($uname, $conn, $r_user_id)) {
 		$em  = "Username is taken! try another";
-		header("Location: ../teacher-edit.php?error=$em&$data");
+		header("Location: ../registrar-office-edit.php?error=$em&$data");
 		exit;
 	}else if (empty($address)) {
         $em  = "Address is required";
-        header("Location: ../teacher-edit.php?error=$em&$data");
+        header("Location: ../registrar-office-edit.php?error=$em&$data");
         exit;
     }else if (empty($employee_number)) {
         $em  = "Employee number is required";
-        header("Location: ../teacher-edit.php?error=$em&$data");
+        header("Location: ../registrar-office-edit.php?error=$em&$data");
         exit;
     }else if (empty($phone_number)) {
         $em  = "Phone number is required";
-        header("Location: ../teacher-edit.php?error=$em&$data");
+        header("Location: ../registrar-office-edit.php?error=$em&$data");
         exit;
     }else if (empty($qualification)) {
         $em  = "Qualification is required";
-        header("Location: ../teacher-edit.php?error=$em&$data");
+        header("Location: ../registrar-office-edit.php?error=$em&$data");
         exit;
     }else if (empty($email_address)) {
         $em  = "Email address is required";
-        header("Location: ../teacher-edit.php?error=$em&$data");
+        header("Location: ../registrar-office-edit.php?error=$em&$data");
         exit;
     }else if (empty($gender)) {
         $em  = "Gender address is required";
-        header("Location: ../teacher-edit.php?error=$em&$data");
+        header("Location: ../registrar-office-edit.php?error=$em&$data");
         exit;
     }else if (empty($date_of_birth)) {
         $em  = "Date of birth address is required";
-        header("Location: ../teacher-edit.php?error=$em&$data");
+        header("Location: ../registrar-office-edit.php?error=$em&$data");
         exit;
     }else {
-        $sql = "UPDATE teachers SET
-                username = ?,class=?, fname=?, lname=?, subjects=?,
+        $sql = "UPDATE registrar_office SET
+                username = ?, fname=?, lname=?,
                 address = ?, employee_number=?, date_of_birth = ?, phone_number = ?, qualification = ?,gender=?, email_address = ?
-                WHERE teacher_id=?";
+                WHERE r_user_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$uname,  $classes, $fname, $lname, $subjects, $address, $employee_number, $date_of_birth, $phone_number, $qualification, $gender, $email_address,        $teacher_id]);
+        $stmt->execute([$uname, $fname, $lname, $address, $employee_number, $date_of_birth, $phone_number, $qualification, $gender, $email_address, $r_user_id]);
         $sm = "successfully updated!";
-        header("Location: ../teacher-edit.php?success=$sm&$data");
+        header("Location: ../registrar-office-edit.php?success=$sm&$data");
         exit;
 	}
     
   }else {
   	$em = "An error occurred";
-    header("Location: ../teacher.php?error=$em");
+    header("Location: ../registrar-office.php?error=$em");
     exit;
   }
 

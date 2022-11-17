@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2022 at 01:05 PM
+-- Generation Time: Nov 17, 2022 at 03:53 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -45,6 +45,28 @@ INSERT INTO `admin` (`admin_id`, `username`, `password`, `fname`, `lname`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `class`
+--
+
+CREATE TABLE `class` (
+  `class_id` int(11) NOT NULL,
+  `grade` int(11) NOT NULL,
+  `section` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `class`
+--
+
+INSERT INTO `class` (`class_id`, `grade`, `section`) VALUES
+(1, 7, 2),
+(2, 1, 1),
+(3, 3, 3),
+(4, 2, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `grades`
 --
 
@@ -64,6 +86,36 @@ INSERT INTO `grades` (`grade_id`, `grade`, `grade_code`) VALUES
 (3, '1', 'KG'),
 (4, '2', 'KG'),
 (7, '3', 'G');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `registrar_office`
+--
+
+CREATE TABLE `registrar_office` (
+  `r_user_id` int(11) NOT NULL,
+  `username` varchar(127) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `fname` varchar(31) NOT NULL,
+  `lname` varchar(31) NOT NULL,
+  `address` varchar(31) NOT NULL,
+  `employee_number` int(11) NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `phone_number` varchar(31) NOT NULL,
+  `qualification` varchar(31) NOT NULL,
+  `gender` varchar(7) NOT NULL,
+  `email_address` varchar(255) NOT NULL,
+  `date_of_joined` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `registrar_office`
+--
+
+INSERT INTO `registrar_office` (`r_user_id`, `username`, `password`, `fname`, `lname`, `address`, `employee_number`, `date_of_birth`, `phone_number`, `qualification`, `gender`, `email_address`, `date_of_joined`) VALUES
+(1, 'james', '$2y$10$cqahOihSn2avqqI0r1aFqeBHfTOWQi2TYYRURU68JN0aYBPdIYls6', 'James', 'William', 'West Virginia', 843583, '2022-10-04', '+12328324092', 'diploma', 'Male', 'james@j.com', '2022-10-23 01:03:25'),
+(2, 'oliver2', '$2y$10$7XhzOu.3OgHPFv7hKjvfUu3waU.8j6xTASj4yIWMfo...k/p8yvvS', 'Oliver2', 'Noah', 'California,  Los angeles', 6546, '1999-06-11', '09457396789', 'BSc, BA', 'Male', 'ov@ab.com', '2022-11-12 23:06:18');
 
 -- --------------------------------------------------------
 
@@ -149,11 +201,10 @@ CREATE TABLE `teachers` (
   `teacher_id` int(11) NOT NULL,
   `username` varchar(127) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `class` varchar(31) NOT NULL,
   `fname` varchar(127) NOT NULL,
   `lname` varchar(127) NOT NULL,
   `subjects` varchar(31) NOT NULL,
-  `grades` varchar(31) NOT NULL,
-  `section` varchar(31) NOT NULL,
   `address` varchar(31) NOT NULL,
   `employee_number` int(11) NOT NULL,
   `date_of_birth` date DEFAULT NULL,
@@ -168,9 +219,9 @@ CREATE TABLE `teachers` (
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`teacher_id`, `username`, `password`, `fname`, `lname`, `subjects`, `grades`, `section`, `address`, `employee_number`, `date_of_birth`, `phone_number`, `qualification`, `gender`, `email_address`, `date_of_joined`) VALUES
-(1, 'oliver', '$2y$10$FNAmnGXSWGIvRwW1j9iaDeomnHhku8a1LKlcO46I.6K/mEzQ2/Xi.', 'Oliver', 'Noah', '12', '12', '1', 'California,  Los angeles', 6546, '2022-09-12', '0945739', 'BSc', 'Female', 'ol@ab.com', '2022-09-09 05:23:45'),
-(5, 'abas', '$2y$10$cMSKcHEJcg3K6wbVcxcXGuksgU39i70aEQVKN7ZHrzqTH9oAc3y5m', 'Abas', 'A.', '1', '12', '12', 'Berlin', 1929, '2003-09-16', '09457396789', 'BSc,', 'Male', 'abas55@ab.com', '2022-09-09 06:42:31');
+INSERT INTO `teachers` (`teacher_id`, `username`, `password`, `class`, `fname`, `lname`, `subjects`, `address`, `employee_number`, `date_of_birth`, `phone_number`, `qualification`, `gender`, `email_address`, `date_of_joined`) VALUES
+(1, 'oliver', '$2y$10$5AU9HzVDQNgYx8YIQbt4Cuom4j5h3j4r879rdRi.8rZj6/PeMM8Jm', '14', 'Oliver', 'Noah', '12', 'California,  Los angeles', 6546, '2022-09-12', '0945739', 'BSc', 'Female', 'ol@ab.com', '2022-09-09 05:23:45'),
+(5, 'abas', '$2y$10$cMSKcHEJcg3K6wbVcxcXGuksgU39i70aEQVKN7ZHrzqTH9oAc3y5m', '123', 'Abas', 'A.', '12', 'Berlin', 1929, '2003-09-16', '09457396789', 'BSc,', 'Male', 'abas55@ab.com', '2022-09-09 06:42:31');
 
 --
 -- Indexes for dumped tables
@@ -184,10 +235,22 @@ ALTER TABLE `admin`
   ADD UNIQUE KEY `username` (`username`);
 
 --
+-- Indexes for table `class`
+--
+ALTER TABLE `class`
+  ADD PRIMARY KEY (`class_id`);
+
+--
 -- Indexes for table `grades`
 --
 ALTER TABLE `grades`
   ADD PRIMARY KEY (`grade_id`);
+
+--
+-- Indexes for table `registrar_office`
+--
+ALTER TABLE `registrar_office`
+  ADD PRIMARY KEY (`r_user_id`);
 
 --
 -- Indexes for table `section`
@@ -226,10 +289,22 @@ ALTER TABLE `admin`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `class`
+--
+ALTER TABLE `class`
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
   MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `registrar_office`
+--
+ALTER TABLE `registrar_office`
+  MODIFY `r_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `section`
@@ -253,7 +328,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

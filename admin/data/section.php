@@ -15,15 +15,15 @@ function getAllSections($conn){
 }
 
 // Get Section by ID
-function getSectioById($grade_id, $conn){
+function getSectioById($section_id, $conn){
    $sql = "SELECT * FROM section
            WHERE section_id=?";
    $stmt = $conn->prepare($sql);
-   $stmt->execute([$grade_id]);
+   $stmt->execute([$section_id]);
 
    if ($stmt->rowCount() == 1) {
-     $grade = $stmt->fetch();
-     return $grade;
+     $section = $stmt->fetch();
+     return $section;
    }else {
     return 0;
    }

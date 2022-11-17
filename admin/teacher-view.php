@@ -9,6 +9,7 @@ if (isset($_SESSION['admin_id']) &&
        include "data/subject.php";
        include "data/grade.php";
        include "data/section.php";
+       include "data/class.php";
 
        if(isset($_GET['teacher_id'])){
 
@@ -65,29 +66,22 @@ if (isset($_SESSION['admin_id']) &&
                    echo $s;
                 ?>
             </li>
-            <li class="list-group-item">Grade: 
-                 <?php 
-                   $g = '';
-                   $grades = str_split(trim($teacher['grades']));
-                   foreach ($grades as $grade) {
-                      $g_temp = getGradeById($grade, $conn);
-                      if ($g_temp != 0) 
-                        $g .=$g_temp['grade_code'].'-'.
-                             $g_temp['grade'].', ';
-                   }
-                   echo $g;
-                  ?>
-            </li>
-            <li class="list-group-item">Section: 
-                 <?php 
-                   $s = '';
-                   $sections = str_split(trim($teacher['section']));
-                   foreach ($sections as $section) {
-                      $s_temp = getSectioById($section, $conn);
-                      if ($s_temp != 0) 
-                        $s .= $s_temp['section'].', ';
-                   }
-                   echo $s;
+            <li class="list-group-item">Class: 
+                  <?php 
+                     $c = '';
+                     $classes = str_split(trim($teacher['class']));
+
+                     foreach ($classes as $class_id) {
+                         $class = getClassById($class_id, $conn);
+
+                        $c_temp = getGradeById($class['grade'], $conn);
+                        $section = getSectioById($class['section'], $conn);
+                        if ($c_temp != 0) 
+                          $c .=$c_temp['grade_code'].'-'.
+                               $c_temp['grade'].$section['section'].', ';
+                     }
+                     echo $c;
+
                   ?>
             </li>
             
