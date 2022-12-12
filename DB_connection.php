@@ -2,7 +2,7 @@
 
 $sName = "localhost";
 $uName = "root";
-$pass  = "";
+$pass  = "root";
 $db_name = "sms_db";
 
 try {
