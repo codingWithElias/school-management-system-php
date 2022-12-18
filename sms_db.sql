@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2022 at 03:53 PM
+-- Generation Time: Dec 18, 2022 at 11:29 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -63,6 +63,26 @@ INSERT INTO `class` (`class_id`, `grade`, `section`) VALUES
 (2, 1, 1),
 (3, 3, 3),
 (4, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courses`
+--
+
+CREATE TABLE `courses` (
+  `course_id` int(11) NOT NULL,
+  `grade` int(11) NOT NULL,
+  `course_name` varchar(127) NOT NULL,
+  `course_code` varchar(31) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`course_id`, `grade`, `course_name`, `course_code`) VALUES
+(1, 2, 'Physics', 'Phy01');
 
 -- --------------------------------------------------------
 
@@ -241,6 +261,12 @@ ALTER TABLE `class`
   ADD PRIMARY KEY (`class_id`);
 
 --
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`course_id`);
+
+--
 -- Indexes for table `grades`
 --
 ALTER TABLE `grades`
@@ -293,6 +319,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `class`
   MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `grades`
