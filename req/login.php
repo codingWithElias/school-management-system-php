@@ -33,10 +33,14 @@ if (isset($_POST['uname']) &&
         	$sql = "SELECT * FROM teachers 
         	        WHERE username = ?";
         	$role = "Teacher";
-        }else {
+        }else if($role == '3'){
         	$sql = "SELECT * FROM students 
         	        WHERE username = ?";
         	$role = "Student";
+        }else if($role == '4'){
+        	$sql = "SELECT * FROM registrar_office 
+        	        WHERE username = ?";
+        	$role = "Registrar Office";
         }
 
         $stmt = $conn->prepare($sql);
@@ -54,6 +58,11 @@ if (isset($_POST['uname']) &&
                         $id = $user['admin_id'];
                         $_SESSION['admin_id'] = $id;
                         header("Location: ../admin/index.php");
+                        exit;
+                    }else if ($role == 'Registrar Office') {
+                        $id = $user['r_user_id'];
+                        $_SESSION['r_user_id'] = $id;
+                        header("Location: ../RegistrarOffice/index.php");
                         exit;
                     }
 				    

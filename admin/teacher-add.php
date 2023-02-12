@@ -8,16 +8,29 @@ if (isset($_SESSION['admin_id']) &&
        include "../DB_connection.php";
        include "data/subject.php";
        include "data/grade.php";
+       include "data/section.php";
+       include "data/class.php";
        $subjects = getAllSubjects($conn);
-       $grades = getAllGrades($conn);
+       $classes = getAllClasses($conn);
+
 
        $fname = '';
        $lname = '';
        $uname = '';
+       $address = '';
+       $en = '';
+       $pn = '';
+       $qf = '';
+       $email = '';
 
        if (isset($_GET['fname'])) $fname = $_GET['fname'];
        if (isset($_GET['lname'])) $lname = $_GET['lname'];
        if (isset($_GET['uname'])) $uname = $_GET['uname'];
+       if (isset($_GET['address'])) $address = $_GET['address'];
+       if (isset($_GET['en'])) $en = $_GET['en'];
+       if (isset($_GET['pn'])) $pn = $_GET['pn'];
+       if (isset($_GET['qf'])) $qf = $_GET['qf'];
+       if (isset($_GET['email'])) $email = $_GET['email'];
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,6 +101,59 @@ if (isset($_SESSION['admin_id']) &&
           
         </div>
         <div class="mb-3">
+          <label class="form-label">Address</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$address?>"
+                 name="address">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">employee Number</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$en?>"
+                 name="employee_number">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone Number</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$pn?>"
+                 name="phone_number">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Qualification</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$qf?>"
+                 name="qualification">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email Address</label>
+          <input type="text" 
+                 class="form-control"
+                 value="<?=$email?>"
+                 name="email_address">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Gender</label><br>
+          <input type="radio"
+                 value="Male"
+                 checked 
+                 name="gender"> Male
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio"
+                 value="Female"
+                 name="gender"> Female
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Date of Birth</label>
+          <input type="date" 
+                 class="form-control"
+                 value=""
+                 name="date_of_birth">
+        </div>
+        <div class="mb-3">
           <label class="form-label">Subject</label>
           <div class="row row-cols-5">
             <?php foreach ($subjects as $subject): ?>
@@ -102,14 +168,18 @@ if (isset($_SESSION['admin_id']) &&
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label">Grade</label>
+          <label class="form-label">Class</label>
           <div class="row row-cols-5">
-            <?php foreach ($grades as $grade): ?>
+            <?php foreach ($classes as $class): ?>
             <div class="col">
               <input type="checkbox"
-                     name="grades[]"
-                     value="<?=$grade['grade_id']?>">
-                     <?=$grade['grade_code']?>-<?=$grade['grade']?>
+                     name="classes[]"
+                     value="<?=$class['class_id']?>">
+                     <?php 
+                        $grade = getGradeById($class['grade'], $conn); 
+                        $section = getSectioById($class['section'], $conn); 
+                      ?>
+                     <?=$grade['grade_code']?>-<?=$grade['grade'].$section['section']?>
             </div>
             <?php endforeach ?>
              

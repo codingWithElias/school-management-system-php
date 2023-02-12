@@ -5,16 +5,15 @@ if (isset($_SESSION['admin_id']) &&
 
     if ($_SESSION['role'] == 'Admin') {
        include "../DB_connection.php";
-       include "data/student.php";
-       include "data/grade.php";
-       $students = getAllStudents($conn);
+       include "data/section.php";
+       $sections = getAllSections($conn);
  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin - Students</title>
+	<title>Admin - Section</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="icon" href="../logo.png">
@@ -24,25 +23,11 @@ if (isset($_SESSION['admin_id']) &&
 <body>
     <?php 
         include "inc/navbar.php";
-        if ($students != 0) {
+        if ($sections != 0) {
      ?>
      <div class="container mt-5">
-        <a href="student-add.php"
-           class="btn btn-dark">Add New Student</a>
-           <form action="student-search.php" 
-                 class="mt-3 n-table"
-                 method="get">
-             <div class="input-group mb-3">
-                <input type="text" 
-                       class="form-control"
-                       name="searchKey"
-                       placeholder="Search...">
-                <button class="btn btn-primary">
-                        <i class="fa fa-search" 
-                           aria-hidden="true"></i>
-                      </button>
-             </div>
-           </form>
+        <a href="section-add.php"
+           class="btn btn-dark">Add New Section</a>
 
            <?php if (isset($_GET['error'])) { ?>
             <div class="alert alert-danger mt-3 n-table" 
@@ -63,41 +48,24 @@ if (isset($_SESSION['admin_id']) &&
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Grade</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Section</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $i = 0; foreach ($students as $student ) { 
+                  <?php $i = 0; foreach ($sections as $section ) { 
                     $i++;  ?>
                   <tr>
                     <th scope="row"><?=$i?></th>
-                    <td><?=$student['student_id']?></td>
-                    <td>
-                      <a href="student-view.php?student_id=<?=$student['student_id']?>">
-                        <?=$student['fname']?>
-                      </a>
-                    </td>
-                    <td><?=$student['lname']?></td>
-                    <td><?=$student['username']?></td>
                     <td>
                       <?php 
-                           $grade = $student['grade'];
-                           $g_temp = getGradeById($grade, $conn);
-                           if ($g_temp != 0) {
-                              echo $g_temp['grade_code'].'-'.
-                                     $g_temp['grade'];
-                            }
-                        ?>
+                          echo $section['section'];
+                       ?>
                     </td>
                     <td>
-                        <a href="student-edit.php?student_id=<?=$student['student_id']?>"
+                        <a href="section-edit.php?section_id=<?=$section['section_id']?>"
                            class="btn btn-warning">Edit</a>
-                        <a href="student-delete.php?student_id=<?=$student['student_id']?>"
+                           
+                        <a href="section-delete.php?section_id=<?=$section['section_id']?>"
                            class="btn btn-danger">Delete</a>
                     </td>
                   </tr>
@@ -116,7 +84,7 @@ if (isset($_SESSION['admin_id']) &&
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>	
     <script>
         $(document).ready(function(){
-             $("#navLinks li:nth-child(3) a").addClass('active');
+             $("#navLinks li:nth-child(5) a").addClass('active');
         });
     </script>
 

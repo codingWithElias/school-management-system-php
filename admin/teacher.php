@@ -8,6 +8,8 @@ if (isset($_SESSION['admin_id']) &&
        include "data/teacher.php";
        include "data/subject.php";
        include "data/grade.php";
+       include "data/class.php";
+       include "data/section.php";
        $teachers = getAllTeachers($conn);
  ?>
 <!DOCTYPE html>
@@ -30,6 +32,21 @@ if (isset($_SESSION['admin_id']) &&
      <div class="container mt-5">
         <a href="teacher-add.php"
            class="btn btn-dark">Add New Teacher</a>
+
+           <form action="teacher-search.php" 
+                 class="mt-3 n-table"
+                 method="get">
+             <div class="input-group mb-3">
+                <input type="text" 
+                       class="form-control"
+                       name="searchKey"
+                       placeholder="Search...">
+                <button class="btn btn-primary">
+                        <i class="fa fa-search" 
+                           aria-hidden="true"></i>
+                      </button>
+             </div>
+           </form>
 
            <?php if (isset($_GET['error'])) { ?>
             <div class="alert alert-danger mt-3 n-table" 
@@ -55,7 +72,7 @@ if (isset($_SESSION['admin_id']) &&
                     <th scope="col">Last Name</th>
                     <th scope="col">Username</th>
                     <th scope="col">Subject</th>
-                    <th scope="col">Grade</th>
+                    <th scope="col">Class</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -65,7 +82,8 @@ if (isset($_SESSION['admin_id']) &&
                   <tr>
                     <th scope="row"><?=$i?></th>
                     <td><?=$teacher['teacher_id']?></td>
-                    <td><?=$teacher['fname']?></td>
+                    <td><a href="teacher-view.php?teacher_id=<?=$teacher['teacher_id']?>">
+                         <?=$teacher['fname']?></a></td>
                     <td><?=$teacher['lname']?></td>
                     <td><?=$teacher['username']?></td>
                     <td>
@@ -82,15 +100,20 @@ if (isset($_SESSION['admin_id']) &&
                     </td>
                     <td>
                       <?php 
-                           $g = '';
-                           $grades = str_split(trim($teacher['grades']));
-                           foreach ($grades as $grade) {
-                              $g_temp = getGradeById($grade, $conn);
-                              if ($g_temp != 0) 
-                                $g .=$g_temp['grade_code'].'-'.
-                                     $g_temp['grade'].', ';
+                           $c = '';
+                           $classes = str_split(trim($teacher['class']));
+
+                           foreach ($classes as $class_id) {
+                               $class = getClassById($class_id, $conn);
+
+                              $c_temp = getGradeById($class['grade'], $conn);
+                              $section = getSectioById($class['section'], $conn);
+                              if ($c_temp != 0) 
+                                $c .=$c_temp['grade_code'].'-'.
+                                     $c_temp['grade'].$section['section'].', ';
                            }
-                           echo $g;
+                           echo $c;
+
                         ?>
                     </td>
                     <td>
