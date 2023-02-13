@@ -15,29 +15,12 @@
              href="index.php">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="teacher.php">Teachers</a>
+          <a class="nav-link" href="grade.php">Grade Summary</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="student.php">Students</a>
+          <a class="nav-link" href="pass.php">Change Password</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="grade.php">Grade</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="section.php">Section</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="class.php">Class</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="registrar-office.php">Registrar-Office</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="course.php">Course</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Settings</a>
-        </li>
+
       </ul>
       <ul class="navbar-nav me-right mb-2 mb-lg-0">
         <li class="nav-item">

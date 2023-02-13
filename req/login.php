@@ -59,6 +59,11 @@ if (isset($_POST['uname']) &&
                         $_SESSION['admin_id'] = $id;
                         header("Location: ../admin/index.php");
                         exit;
+                    }else if ($role == 'Student') {
+                        $id = $user['student_id'];
+                        $_SESSION['student_id'] = $id;
+                        header("Location: ../Student/index.php");
+                        exit;
                     }else if ($role == 'Registrar Office') {
                         $id = $user['r_user_id'];
                         $_SESSION['r_user_id'] = $id;
