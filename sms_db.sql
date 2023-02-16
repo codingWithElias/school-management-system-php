@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2023 at 08:09 PM
+-- Generation Time: Feb 16, 2023 at 12:04 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -63,26 +63,6 @@ INSERT INTO `class` (`class_id`, `grade`, `section`) VALUES
 (2, 1, 1),
 (3, 3, 3),
 (4, 2, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `courses`
---
-
-CREATE TABLE `courses` (
-  `course_id` int(11) NOT NULL,
-  `grade` int(11) NOT NULL,
-  `course_name` varchar(127) NOT NULL,
-  `course_code` varchar(31) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `courses`
---
-
-INSERT INTO `courses` (`course_id`, `grade`, `course_name`, `course_code`) VALUES
-(1, 2, 'Physics', 'Phy01');
 
 -- --------------------------------------------------------
 
@@ -161,6 +141,24 @@ INSERT INTO `section` (`section_id`, `section`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `setting`
+--
+
+CREATE TABLE `setting` (
+  `current_year` int(11) NOT NULL,
+  `current_semester` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `setting`
+--
+
+INSERT INTO `setting` (`current_year`, `current_semester`) VALUES
+(2023, 'II');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `students`
 --
 
@@ -187,8 +185,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `username`, `password`, `fname`, `lname`, `grade`, `section`, `address`, `gender`, `email_address`, `date_of_birth`, `date_of_joined`, `parent_fname`, `parent_lname`, `parent_phone_number`) VALUES
-(1, 'john', '$2y$10$I/IYhTxvHg3DqOyzTILKEeUI5CO5URLj.R1PZKx5c8HK3z5xkYlwC', 'John', 'Doe', 1, 1, 'California,  Los angeles', 'Male', 'abas55@ab.com', '2012-09-12', '2019-12-11 14:16:44', 'Doe', 'Mark', '09393'),
-(3, 'abas', '$2y$10$KLFheMWgpLfoiqMuW2LQxOPficlBiSIJ9.wE2qr5yJUbAQ.5VURoO', 'Abas', 'A.', 1, 1, 'Berlin', 'Male', 'abas@ab.com', '2002-12-03', '2021-12-01 14:16:51', 'dsf', 'dfds', '7979'),
+(1, 'john', '$2y$10$xmtROY8efWeORYiuQDE3SO.eZwscao20QNuLky1Qlr88zDzNNq4gm', 'John', 'Doe', 1, 1, 'California,  Los angeles', 'Male', 'abas55@ab.com', '2012-09-12', '2019-12-11 14:16:44', 'Doe', 'Mark', '09393'),
+(3, 'abas', '$2y$10$KLFheMWgpLfoiqMuW2LQxOPficlBiSIJ9.wE2qr5yJUbAQ.5VURoO', 'Abas', 'A.', 2, 1, 'Berlin', 'Male', 'abas@ab.com', '2002-12-03', '2021-12-01 14:16:51', 'dsf', 'dfds', '7979'),
 (4, 'jo', '$2y$10$pYyVlWg9jxkT0u/4LrCMS.ztMaOvgyol1hgNt.jqcFEqUC7yZLIYe', 'John3', 'Doe', 1, 1, 'California,  Los angeles', 'Female', 'jo@jo.com', '2013-06-13', '2022-09-10 13:48:49', 'Doe', 'Mark', '074932040'),
 (5, 'jo2', '$2y$10$lRQ58lbak05rW7.be8ok4OaWJcb9znRp9ra.qXqnQku.iDrA9N8vy', 'Jhon', 'Doe', 1, 1, 'UK', 'Male', 'jo@jo.com', '1990-02-15', '2023-02-12 18:11:26', 'Doe', 'Do', '0943568654');
 
@@ -201,16 +199,22 @@ INSERT INTO `students` (`student_id`, `username`, `password`, `fname`, `lname`, 
 CREATE TABLE `subjects` (
   `subject_id` int(11) NOT NULL,
   `subject` varchar(31) NOT NULL,
-  `subject_code` varchar(31) NOT NULL
+  `subject_code` varchar(31) NOT NULL,
+  `grade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `subjects`
 --
 
-INSERT INTO `subjects` (`subject_id`, `subject`, `subject_code`) VALUES
-(1, 'English', 'En'),
-(2, 'Physics', 'Phy');
+INSERT INTO `subjects` (`subject_id`, `subject`, `subject_code`, `grade`) VALUES
+(1, 'English', 'En', 1),
+(2, 'Physics', 'Phy', 2),
+(3, 'Biology', 'Bio-01', 1),
+(4, 'Math', 'Math-01', 1),
+(5, 'Chemistry', 'ch-01', 1),
+(6, 'Programming', 'pro-01', 1),
+(7, 'Java', 'java-01', 1);
 
 -- --------------------------------------------------------
 
@@ -241,7 +245,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `username`, `password`, `class`, `fname`, `lname`, `subjects`, `address`, `employee_number`, `date_of_birth`, `phone_number`, `qualification`, `gender`, `email_address`, `date_of_joined`) VALUES
-(1, 'oliver', '$2y$10$bfd4VTnOaDE1LJZA/j4K0uP27YXAAIxDjY2XPTBAGU8K6fu4u7uFK', '14', 'Oliver', 'Noah', '12', 'California,  Los angeles', 6546, '2022-09-12', '0945739', 'BSc', 'Female', 'ol@ab.com', '2022-09-09 05:23:45'),
+(1, 'oliver', '$2y$10$ya8DapmiDqny2MDjo5P6LeVc3hzgeVQX.b2VUbcSUa3HM0tDSluIu', '1234', 'Oliver', 'Noah', '1245', 'California,  Los angeles', 6546, '2022-09-12', '0945739', 'BSc', 'Male', 'ol@ab.com', '2022-09-09 05:23:45'),
 (5, 'abas', '$2y$10$cMSKcHEJcg3K6wbVcxcXGuksgU39i70aEQVKN7ZHrzqTH9oAc3y5m', '123', 'Abas', 'A.', '12', 'Berlin', 1929, '2003-09-16', '09457396789', 'BSc,', 'Male', 'abas55@ab.com', '2022-09-09 06:42:31');
 
 --
@@ -260,12 +264,6 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `class`
   ADD PRIMARY KEY (`class_id`);
-
---
--- Indexes for table `courses`
---
-ALTER TABLE `courses`
-  ADD PRIMARY KEY (`course_id`);
 
 --
 -- Indexes for table `grades`
@@ -322,12 +320,6 @@ ALTER TABLE `class`
   MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `courses`
---
-ALTER TABLE `courses`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
@@ -355,7 +347,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `teachers`

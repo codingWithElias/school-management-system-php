@@ -30,14 +30,16 @@ function getSubjectById($subject_id, $conn){
 }
 
 
-// DELETE course
-function removeCourse($id, $conn){
-   $sql  = "DELETE FROM subjects
-           WHERE subject_id=?";
+// Get Subjects by ID
+function getSubjectByGrade($grade, $conn){
+   $sql = "SELECT * FROM subjects
+           WHERE grade=?";
    $stmt = $conn->prepare($sql);
-   $re   = $stmt->execute([$id]);
-   if ($re) {
-     return 1;
+   $stmt->execute([$grade]);
+
+   if ($stmt->rowCount() > 0) {
+     $subject = $stmt->fetchAll();
+     return $subject;
    }else {
     return 0;
    }

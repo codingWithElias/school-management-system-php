@@ -38,15 +38,15 @@ if (isset($_POST['course_name']) &&
         exit;
     }else {
         // check if the class already exists
-        $sql_check = "SELECT * FROM courses 
-                      WHERE grade=? AND course_code=?";
+        $sql_check = "SELECT * FROM subjects 
+                      WHERE grade=? AND subject_code=?";
         $stmt_check = $conn->prepare($sql_check);
         $stmt_check->execute([$grade, $course_code]);
         if ($stmt_check->rowCount() > 0) {
               $courses = $stmt_check->fetch();
-             if ($courses['course_id'] == $course_id) {
-                $sql  = "UPDATE courses SET course_name=?, course_code=?, grade=?
-                     WHERE course_id=?";
+             if ($courses['subject_id'] == $course_id) {
+                $sql  = "UPDATE subjects SET subject=?, subject_code=?, grade=?
+                     WHERE subject_id=?";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute([$course_name, $course_code, $grade, $course_id]);
                 $sm = "Course updated successfully";
@@ -61,8 +61,8 @@ if (isset($_POST['course_name']) &&
            
         }else {
 
-            $sql  = "UPDATE courses SET course_name=?, course_code=?, grade=?
-                     WHERE course_id=?";
+            $sql  = "UPDATE subjects SET subject=?, subject_code=?, grade=?
+                     WHERE subject_id=?";
             $stmt = $conn->prepare($sql);
             $stmt->execute([$course_name, $course_code, $grade, $course_id]);
             $sm = "Course updated successfully";

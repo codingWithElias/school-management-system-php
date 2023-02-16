@@ -30,8 +30,8 @@ if (isset($_POST['course_name']) &&
 		exit;
 	}else {
         // check if the class already exists
-        $sql_check = "SELECT * FROM courses 
-                      WHERE grade=? AND course_code=?";
+        $sql_check = "SELECT * FROM subjects 
+                      WHERE grade=? AND subject_code=?";
         $stmt_check = $conn->prepare($sql_check);
         $stmt_check->execute([$grade, $course_code]);
         if ($stmt_check->rowCount() > 0) {
@@ -40,7 +40,7 @@ if (isset($_POST['course_name']) &&
            exit;
         }else {
           $sql  = "INSERT INTO
-                 courses(grade, course_name, course_code)
+                 subjects(grade, subject, subject_code)
                  VALUES(?,?,?)";
           $stmt = $conn->prepare($sql);
           $stmt->execute([$grade, $course_name, $course_code]);

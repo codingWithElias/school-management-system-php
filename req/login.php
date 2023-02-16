@@ -69,6 +69,15 @@ if (isset($_POST['uname']) &&
                         $_SESSION['r_user_id'] = $id;
                         header("Location: ../RegistrarOffice/index.php");
                         exit;
+                    }else if($role == 'Teacher'){
+                    	$id = $user['teacher_id'];
+                        $_SESSION['teacher_id'] = $id;
+                        header("Location: ../Teacher/index.php");
+                        exit;
+                    }else {
+                    	$em  = "Incorrect Username or Password";
+				        header("Location: ../login.php?error=$em");
+				        exit;
                     }
 				    
             	}else {

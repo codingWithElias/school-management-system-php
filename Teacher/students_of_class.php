@@ -3,18 +3,28 @@ session_start();
 if (isset($_SESSION['teacher_id']) && 
     isset($_SESSION['role'])) {
 
-    if ($_SESSION['role'] == 'Registrar Office') {
+    if ($_SESSION['role'] == 'Teacher') {
        include "../DB_connection.php";
        include "data/student.php";
        include "data/grade.php";
+       include "data/class.php";
+       include "data/section.php";
+       if (!isset($_GET['class_id'])) {
+           header("Location: students.php");
+           exit;
+       }
+       $class_id = $_GET['class_id'];
        $students = getAllStudents($conn);
+
+       $class = getClassById($class_id, $conn);
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registrar Office - Students</title>
+	<title>Teacher - Students</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="icon" href="../logo.png">
@@ -23,42 +33,17 @@ if (isset($_SESSION['teacher_id']) &&
 </head>
 <body>
     <?php 
+    include "inc/navbar.php";
         if ($students != 0) {
      ?>
-     <div class="container mt-5">
-        <a href="student-add.php"
-           class="btn btn-dark">Add New Student</a>
-        <a href="index.php"
-           class="btn btn-dark">Go Back</a>
-           <form action="student-search.php" 
-                 class="mt-3 n-table"
-                 method="get">
-             <div class="input-group mb-3">
-                <input type="text" 
-                       class="form-control"
-                       name="searchKey"
-                       placeholder="Search...">
-                <button class="btn btn-primary">
-                        <i class="fa fa-search" 
-                           aria-hidden="true"></i>
-                      </button>
-             </div>
-           </form>
-
-           <?php if (isset($_GET['error'])) { ?>
-            <div class="alert alert-danger mt-3 n-table" 
-                 role="alert">
-              <?=$_GET['error']?>
-            </div>
-            <?php } ?>
-
-          <?php if (isset($_GET['success'])) { ?>
-            <div class="alert alert-info mt-3 n-table" 
-                 role="alert">
-              <?=$_GET['success']?>
-            </div>
-            <?php } ?>
-
+     
+  <?php $i = 0; foreach ($students as $student ) { 
+       $g = getGradeById($class['grade'], $conn);
+       $s = getSectioById($class['section'], $conn);
+       if ($g['grade_id'] == $student['grade'] && $s['section_id'] == $student['section']) { $i++; 
+       if ($i == 1) { 
+    ?>
+        <div class="container mt-5">
            <div class="table-responsive">
               <table class="table table-bordered mt-3 n-table">
                 <thead>
@@ -71,14 +56,13 @@ if (isset($_SESSION['teacher_id']) &&
                     <th scope="col">Grade</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <?php $i = 0; foreach ($students as $student ) { 
-                    $i++;  ?>
+                <tbody>  
+              <?php } ?>          
                   <tr>
                     <th scope="row"><?=$i?></th>
                     <td><?=$student['student_id']?></td>
                     <td>
-                      <a href="student-view.php?student_id=<?=$student['student_id']?>">
+                      <a href="student-grade.php?student_id=<?=$student['student_id']?>">
                         <?=$student['fname']?>
                       </a>
                     </td>
@@ -95,7 +79,7 @@ if (isset($_SESSION['teacher_id']) &&
                         ?>
                     </td>
                   </tr>
-                <?php } ?>
+                <?php } } ?>
                 </tbody>
               </table>
            </div>
