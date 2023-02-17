@@ -12,6 +12,8 @@ if (isset($_SESSION['teacher_id']) &&
        include "data/setting.php";
        include "data/subject.php";
        include "data/teacher.php";
+       include "data/student_score.php";
+
        if (!isset($_GET['student_id'])) {
            header("Location: students.php");
            exit;
@@ -25,6 +27,15 @@ if (isset($_SESSION['teacher_id']) &&
        $teacher = getTeacherById($teacher_id, $conn);
 
        $teacher_subjects = str_split(trim($teacher['subjects']));
+
+       
+      
+       $ssubject_id = 0;
+       if (isset($_POST['ssubject_id'])) {
+           $ssubject_id = $_POST['ssubject_id'];
+
+           $student_score = getScoreById($student_id, $teacher_id, $ssubject_id, $setting['current_semester'], $setting['current_year'], $conn); 
+       }
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,11 +54,11 @@ if (isset($_SESSION['teacher_id']) &&
     include "inc/navbar.php";
         if ($student != 0 && $setting !=0 && $subjects !=0 && $teacher_subjects != 0) {
      ?>
-     <div class="d-flex align-items-center flex-column"><br><br>
 
-        <form class="login shadow p-3" 
-              method="post"
-              action="req/login.php">
+     <div class="d-flex align-items-center flex-column"><br><br>
+        <div class="login shadow p-3">
+        <form method="post"
+              action="">
             <div class="mb-3">
                 <ul class="list-group">
                     <li class="list-group-item"><b>ID: </b> <?php echo $student['student_id'] ?></li>
@@ -72,28 +83,75 @@ if (isset($_SESSION['teacher_id']) &&
               <?=$_GET['error']?>
             </div>
             <?php } ?>
+            <?php if (isset($_GET['success'])) { ?>
+            <div class="alert alert-success" role="alert">
+              <?=$_GET['success']?>
+            </div>
+            <?php } ?>
            
          <label class="form-label">Subject / Course</label>
             <select class="form-control"
-                    name="role">
+                    name="ssubject_id">
                     <?php foreach($subjects as $subject){ 
                         foreach($teacher_subjects as $teacher_subject){
                             if($subject['subject_id'] == $teacher_subject){ ?>
                     
-                       <option value="1">
+                       <option <?php if($ssubject_id == $subject['subject_id']){echo "selected";} ?> 
+                           value="<?php echo $subject['subject_id'] ?>">
                         <?php echo $subject['subject_code'] ?></option>
                     <?php }   }
                         } ?>
             </select><br>
 
-         <div class="input-group mb-3">
-              <input type="number" min="0" max="100" class="form-control">
-              <span class="input-group-text">/</span>
-              <input type="number" min="0" max="100" class="form-control">
-         </div>
-          
-          <button type="submit" class="btn btn-primary">Save</button>
+            
+            <button type="submit" class="btn btn-primary">Select</button><br><br>
         </form>
+        <form method="post"
+              action="req/save-score.php">
+        <?php 
+            
+            if ($ssubject_id != 0) { 
+              $counter = 0;
+              if($student_score != 0){ ?>
+                <input type="text" name="student_score_id"
+            value="<?=$student_score['id']?>" hidden>
+            <?php
+            $scores = explode(',', trim($student_score['results']));
+
+            foreach ($scores as $score) { 
+                $temp =  explode(' ', trim($score));
+                $counter++;
+            ?>
+
+            <div class="input-group mb-3">
+                  <input type="number" min="0" max="100" class="form-control" value="<?=$temp[0]?>"name="score-<?php echo $counter; ?>">
+                  <span class="input-group-text">/</span>
+                  <input type="number" min="0" max="100" class="form-control" value="<?=$temp[1]?>"
+                  name="aoutof-<?php echo $counter; ?>">
+            </div>  
+           <?php } } if($counter <  5){ 
+               for ($i=++$counter; $i <= 5; $i++) { 
+            ?>
+            <div class="input-group mb-3">
+                  <input type="text" class="form-control" value="xx" 
+                  name="score-<?php echo $i; ?>">
+                  <span class="input-group-text">/</span>
+                  <input type="text" class="form-control" value="xx"
+                  name="aoutof-<?php echo $i; ?>">
+            </div>
+            
+                   
+           <?php } } ?>
+
+           <input type="text" name="student_id" value="<?=$student_id?>" hidden>
+            <input type="text" name="subject_id" value="<?=$ssubject_id?>"hidden>
+            <input type="text" name="current_semester" value="<?=$setting['current_semester']?>" hidden>
+            <input type="text" name="current_year" value="<?=$setting['current_year']?>" hidden>
+        
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>  
+        <?php } ?> 
+        </div>
         </div>
      <?php 
          }else{

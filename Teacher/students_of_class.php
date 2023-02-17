@@ -35,6 +35,7 @@ if (isset($_SESSION['teacher_id']) &&
     <?php 
     include "inc/navbar.php";
         if ($students != 0) {
+            $check = 0;
      ?>
      
   <?php $i = 0; foreach ($students as $student ) { 
@@ -42,6 +43,7 @@ if (isset($_SESSION['teacher_id']) &&
        $s = getSectioById($class['section'], $conn);
        if ($g['grade_id'] == $student['grade'] && $s['section_id'] == $student['section']) { $i++; 
        if ($i == 1) { 
+        $check++;
     ?>
         <div class="container mt-5">
            <div class="table-responsive">
@@ -90,6 +92,10 @@ if (isset($_SESSION['teacher_id']) &&
               </div>
          <?php } ?>
      </div>
+    <?php if ($check == 0) {
+        header("Location: students.php");
+        exit;
+    } ?>
      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>	
     <script>

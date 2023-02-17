@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2023 at 12:04 PM
+-- Generation Time: Feb 17, 2023 at 01:13 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -193,6 +193,31 @@ INSERT INTO `students` (`student_id`, `username`, `password`, `fname`, `lname`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student_score`
+--
+
+CREATE TABLE `student_score` (
+  `id` int(11) NOT NULL,
+  `semester` varchar(100) NOT NULL,
+  `year` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `results` varchar(512) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_score`
+--
+
+INSERT INTO `student_score` (`id`, `semester`, `year`, `student_id`, `teacher_id`, `subject_id`, `results`) VALUES
+(1, 'II', 2021, 1, 1, 1, '10 15,15 20,10 10,10 20,30 35'),
+(2, 'II', 2023, 1, 1, 4, '15 20,4 5'),
+(3, 'I', 2022, 1, 1, 5, '10 20,50 50');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `subjects`
 --
 
@@ -245,7 +270,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`teacher_id`, `username`, `password`, `class`, `fname`, `lname`, `subjects`, `address`, `employee_number`, `date_of_birth`, `phone_number`, `qualification`, `gender`, `email_address`, `date_of_joined`) VALUES
-(1, 'oliver', '$2y$10$ya8DapmiDqny2MDjo5P6LeVc3hzgeVQX.b2VUbcSUa3HM0tDSluIu', '1234', 'Oliver', 'Noah', '1245', 'California,  Los angeles', 6546, '2022-09-12', '0945739', 'BSc', 'Male', 'ol@ab.com', '2022-09-09 05:23:45'),
+(1, 'oliver', '$2y$10$JruTW/rNZ6CVO4nxYWCrn.GJpiIKMACEPYrK00S7Dk/fkbJIdYau2', '1234', 'Oliver', 'Noah', '1245', 'California,  Los angeles', 6546, '2022-09-12', '0945739', 'BSc', 'Male', 'ol@ab.com', '2022-09-09 05:23:45'),
 (5, 'abas', '$2y$10$cMSKcHEJcg3K6wbVcxcXGuksgU39i70aEQVKN7ZHrzqTH9oAc3y5m', '123', 'Abas', 'A.', '12', 'Berlin', 1929, '2003-09-16', '09457396789', 'BSc,', 'Male', 'abas55@ab.com', '2022-09-09 06:42:31');
 
 --
@@ -289,6 +314,12 @@ ALTER TABLE `section`
 ALTER TABLE `students`
   ADD PRIMARY KEY (`student_id`),
   ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `student_score`
+--
+ALTER TABLE `student_score`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `subjects`
@@ -342,6 +373,12 @@ ALTER TABLE `section`
 --
 ALTER TABLE `students`
   MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `student_score`
+--
+ALTER TABLE `student_score`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subjects`
