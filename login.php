@@ -44,8 +44,9 @@
 		    <select class="form-control"
 		            name="role">
 		    	<option value="1">Admin</option>
-		    	<option value="3">Student</option>
 		    	<option value="2">Teacher</option>
+		    	<option value="3">Student</option>
+		    	<option value="4">Registrar Office</option>
 		    </select>
 		  </div>
 

@@ -33,31 +33,31 @@ if (isset($_SESSION['admin_id']) &&
                  <i class="fa fa-graduation-cap fs-1" aria-hidden="true"></i><br>
                   Students
                </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
+               <a href="registrar-office.php" class="col btn btn-dark m-2 py-3">
                  <i class="fa fa-pencil-square fs-1" aria-hidden="true"></i><br>
                   Registrar Office
                </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
+               <a href="class.php" class="col btn btn-dark m-2 py-3">
                  <i class="fa fa-cubes fs-1" aria-hidden="true"></i><br>
                   Class
                </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
+               <a href="section.php" class="col btn btn-dark m-2 py-3">
                  <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>
                   Section
                </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
-                 <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>
-                  Schedule
+               <a href="grade.php" class="col btn btn-dark m-2 py-3">
+                 <i class="fa fa-level-up fs-1" aria-hidden="true"></i><br>
+                  Grade
                </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
+               <a href="course.php" class="col btn btn-dark m-2 py-3">
                  <i class="fa fa-book fs-1" aria-hidden="true"></i><br>
                   Course
                </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
+               <a href="message.php" class="col btn btn-dark m-2 py-3">
                  <i class="fa fa-envelope fs-1" aria-hidden="true"></i><br>
                   Message
                </a> 
-               <a href="" class="col btn btn-primary m-2 py-3 col-5">
+               <a href="settings.php" class="col btn btn-primary m-2 py-3 col-5">
                  <i class="fa fa-cogs fs-1" aria-hidden="true"></i><br>
                   Settings
                </a> 

@@ -27,7 +27,7 @@ function removeStudent($id, $conn){
    }
 }
 
-// Get Teacher by ID
+// Get Student By Id 
 function getStudentById($id, $conn){
    $sql = "SELECT * FROM students
            WHERE student_id=?";
@@ -71,4 +71,27 @@ function unameIsUnique($uname, $conn, $student_id=0){
    
 }
 
- ?>
+
+// Search 
+function searchStudents($key, $conn){
+   $key = preg_replace('/(?<!\\\)([%_])/', '\\\$1',$key);
+   $sql = "SELECT * FROM students
+           WHERE student_id LIKE ? 
+           OR fname LIKE ?
+           OR address LIKE ?
+           OR email_address LIKE ?
+           OR parent_fname LIKE ?
+           OR parent_lname LIKE ?
+           OR parent_phone_number LIKE ?
+           OR lname LIKE ?
+           OR username LIKE ?";
+   $stmt = $conn->prepare($sql);
+   $stmt->execute([$key, $key, $key, $key, $key, $key, $key, $key, $key]);
+
+   if ($stmt->rowCount() == 1) {
+     $students = $stmt->fetchAll();
+     return $students;
+   }else {
+    return 0;
+   }
+}

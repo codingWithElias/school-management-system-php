@@ -29,6 +29,20 @@ if (isset($_SESSION['admin_id']) &&
      <div class="container mt-5">
         <a href="student-add.php"
            class="btn btn-dark">Add New Student</a>
+           <form action="student-search.php" 
+                 class="mt-3 n-table"
+                 method="get">
+             <div class="input-group mb-3">
+                <input type="text" 
+                       class="form-control"
+                       name="searchKey"
+                       placeholder="Search...">
+                <button class="btn btn-primary">
+                        <i class="fa fa-search" 
+                           aria-hidden="true"></i>
+                      </button>
+             </div>
+           </form>
 
            <?php if (isset($_GET['error'])) { ?>
             <div class="alert alert-danger mt-3 n-table" 
@@ -63,7 +77,11 @@ if (isset($_SESSION['admin_id']) &&
                   <tr>
                     <th scope="row"><?=$i?></th>
                     <td><?=$student['student_id']?></td>
-                    <td><?=$student['fname']?></td>
+                    <td>
+                      <a href="student-view.php?student_id=<?=$student['student_id']?>">
+                        <?=$student['fname']?>
+                      </a>
+                    </td>
                     <td><?=$student['lname']?></td>
                     <td><?=$student['username']?></td>
                     <td>
