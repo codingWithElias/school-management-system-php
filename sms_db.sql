@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 01:13 PM
+-- Generation Time: Feb 19, 2023 at 02:16 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -90,6 +90,29 @@ INSERT INTO `grades` (`grade_id`, `grade`, `grade_code`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `message`
+--
+
+CREATE TABLE `message` (
+  `message_id` int(11) NOT NULL,
+  `sender_full_name` varchar(100) NOT NULL,
+  `sender_email` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `date_time` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`message_id`, `sender_full_name`, `sender_email`, `message`, `date_time`) VALUES
+(1, 'John doe', 'es@gmail.com', 'Hello, world', '2023-02-17 23:39:15'),
+(2, 'John doe', 'es@gmail.com', 'Hi', '2023-02-17 23:49:19'),
+(3, 'John doe', 'es@gmail.com', 'Hey, ', '2023-02-17 23:49:36');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `registrar_office`
 --
 
@@ -145,16 +168,20 @@ INSERT INTO `section` (`section_id`, `section`) VALUES
 --
 
 CREATE TABLE `setting` (
+  `id` int(11) NOT NULL,
   `current_year` int(11) NOT NULL,
-  `current_semester` varchar(11) NOT NULL
+  `current_semester` varchar(11) NOT NULL,
+  `school_name` varchar(100) NOT NULL,
+  `slogan` varchar(300) NOT NULL,
+  `about` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `setting`
 --
 
-INSERT INTO `setting` (`current_year`, `current_semester`) VALUES
-(2023, 'II');
+INSERT INTO `setting` (`id`, `current_year`, `current_semester`, `school_name`, `slogan`, `about`) VALUES
+(1, 2023, 'II', 'Y School', 'Lux et Veritas Light and Truth', 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.');
 
 -- --------------------------------------------------------
 
@@ -297,6 +324,12 @@ ALTER TABLE `grades`
   ADD PRIMARY KEY (`grade_id`);
 
 --
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`message_id`);
+
+--
 -- Indexes for table `registrar_office`
 --
 ALTER TABLE `registrar_office`
@@ -307,6 +340,12 @@ ALTER TABLE `registrar_office`
 --
 ALTER TABLE `section`
   ADD PRIMARY KEY (`section_id`);
+
+--
+-- Indexes for table `setting`
+--
+ALTER TABLE `setting`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `students`
@@ -357,6 +396,12 @@ ALTER TABLE `grades`
   MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `registrar_office`
 --
 ALTER TABLE `registrar_office`
@@ -367,6 +412,12 @@ ALTER TABLE `registrar_office`
 --
 ALTER TABLE `section`
   MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `setting`
+--
+ALTER TABLE `setting`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `students`
