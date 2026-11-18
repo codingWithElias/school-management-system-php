@@ -22,7 +22,7 @@
     		<h3>LOGIN</h3>
     		<?php if (isset($_GET['error'])) { ?>
     		<div class="alert alert-danger" role="alert">
-			  <?=$_GET['error']?>
+			  <?=htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8')?>
 			</div>
 			<?php } ?>
 		  <div class="mb-3">
