@@ -77,12 +77,12 @@ if ($setting != 0) {
         		<h3>Contact Us</h3>
         		<?php if (isset($_GET['error'])) { ?>
 	    		<div class="alert alert-danger" role="alert">
-				  <?=$_GET['error']?>
+				  <?=htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8')?>
 				</div>
 				<?php } ?>
 				<?php if (isset($_GET['success'])) { ?>
 		          <div class="alert alert-success" role="alert">
-		           <?=$_GET['success']?>
+		           <?=htmlspecialchars($_GET['success'], ENT_QUOTES, 'UTF-8')?>
 		          </div>
 		        <?php } ?>
 			  <div class="mb-3">
